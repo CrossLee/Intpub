@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.custom.i18n.resources" value="message"></constant>
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<constant name="struts.objectFactory" value="spring"/>
+	<constant name="struts.multipart.maxSize" value="209715200" />
+	<constant name="struts.action.extension" value="html,do,action" />
+
+	<include file="struts-default.xml" />
+	<package name="default" extends="struts-default,json-default">
+	</package>
+
+	<!-- Role Package Start -->
+	<package name="rolepackage" extends="struts-default,json-default" namespace="/rolespace">
+		<action name="*RoleAction" class="roleAction" method="{1}">
+			<result name="roleObj" type="json"></result>
+			<result name="input">/errors/error.html</result>
+			<result name="success">/manage_role/role_list.jsp</result>
+			<result name="queryOneSuccess">/manage_role/role_alert.jsp</result>
+		</action>
+		<action name="*Action" class="roleAction" method="{1}">
+			<result name="add">/manage_role/role_add.jsp</result>
+			<result name="delete">/manage_role/role_delete.jsp</result>
+			<result name="modify">/manage_role/role_modify.jsp</result>
+			<result name="query">/manage_role/role_query.jsp</result>
+			<result name="rolemenu">/manage_role/role_menu.jsp</result>
+		</action>
+	</package>
+	<!-- Role Package End -->
+	
+	<!-- User Package Start-->
+	<package name="userspace" extends="struts-default,json-default" namespace="/userspace">
+		<action name="*User" class="userAction" method="{1}">
+			<result name="userObj" type="json"></result>
+			<result name="querySucc" >/manage_user/user_list.jsp</result>
+			<result name="updateByQuerySucc" >/manage_user/user_detail.jsp</result>
+			<result name="roleQuery" >/manage_user/user_role.jsp</result>
+			<result name="roleUser" >/manage_user/user_role_add.jsp</result>
+			<result name="add" >/manage_user/user_add.jsp</result>
+			<result name="update" >/manage_user/user_update.jsp</result>
+			<result name="delete" >/manage_user/user_delete.jsp</result>
+			<result name="query" >/manage_user/user_query.jsp</result>
+			<result name="self" >/manage_user/update_self.jsp</result>
+		</action>
+	</package>
+	<!-- User Package End-->
+	<!-- Info Package Start-->
+	<package name="infospace" extends="struts-default,json-default" namespace="/infospace">
+		<action name="*Info" class="infoAction" method="{1}">
+			<result name="infoObj" type="json"></result>
+			<result name="upload_add" >/manage_info/info_add.jsp</result>
+			<result name="upload" >/manage_info/info_query.jsp</result>
+			<result name="publish" >/manage_info/info_publish.jsp</result>
+			<result name="update" >/manage_info/info_update.jsp</result>
+			<result name="querySucc" >/manage_info/info_list.jsp</result>
+			<result name="updateByQuerySucc" >/manage_info/info_detail.jsp</result>
+			<result name="updateByPublishSucc" >/manage_info/publish_detail.jsp</result>
+		</action>
+	</package>
+	<!-- Info Package End-->
+	
+	<package name="module" extends="default" namespace="/modulespace">
+		<action name="moduleAdd" class="moduleAction" method="addModule">
+			<result name="moduleAddObj">/manage_module/module_add.jsp</result>
+		</action>
+		<action name="toModuleList" class="moduleAction" method="queryAllModules">
+			<result name="list">/manage_module/module_list.jsp</result>
+			<result name="update">/manage_module/module_update.jsp</result>
+			<result name="delete">/manage_module/module_delete.jsp</result>
+		</action>
+		<action name="queryModuleByCondition" class="moduleAction" method="queryModulesByCondition">
+			<result name="queryList" >/manage_module/module_list_flush.jsp</result>
+			<result name="deleteList" >/manage_module/module_list_delete.jsp</result>
+			<result name="updateList" >/manage_module/module_list_update.jsp</result>
+		</action>
+		<!-- <action name="toModuleUpdate" class="moduleAction" method="queryModuleByModuleCode">
+			<result name="success">/manage_module/module_update.jsp</result>
+		</action> -->
+		<action name="moduleUpdate" class="moduleAction" method="updateModule">
+			<result name="success">/manage_module/module_list_update.jsp</result>
+		</action>
+		<action name="queryModuleDetail" class="moduleAction" method="queryModuleDetail">
+			<result name="success">/manage_module/module_detail.jsp</result>
+		</action>
+		<action name="queryDetailForUpdate" class="moduleAction" method="queryDetailForUpdate">
+			<result name="success">/manage_module/module_update_detail.jsp</result>
+		</action>
+		<!-- <action name="moduleQueryForUpdate" class="moduleAction" method="queryModulesForUpdate">
+			<result name="success">/manage_module/module_update.jsp</result>
+		</action> -->
+		<action name="deleteModule" class="moduleAction" method="deleteModule">
+			<result name="success" >/manage_module/module_list_delete.jsp</result>
+		</action>
+	</package>
+	
+	<package name="part" extends="default" namespace="/partspace">
+		<action name="partAdd" class="partAction" method="addPart">
+			<result name="success">/manage_part/part_add.jsp</result>
+		</action>
+		<action name="toPartList" class="partAction" method="queryAllParts">
+			<result name="list">/manage_part/part_list.jsp</result>
+			<result name="update">/manage_part/part_update.jsp</result>
+			<result name="delete">/manage_part/part_delete.jsp</result>
+		</action>
+		<action name="queryPartsByCondition" class="partAction" method="queryPartsByCondition">
+			<result name="queryList">/manage_part/part_list_flush.jsp</result>
+			<result name="updateList">/manage_part/part_update_list.jsp</result>
+			<result name="deleteList">/manage_part/part_delete_list.jsp</result>
+		</action>
+		<action name="toDetail" class="partAction" method="queryPartDetail">
+			<result name="list">/manage_part/part_detail.jsp</result>
+			<result name="update">/manage_part/part_update_detail.jsp</result>
+			<!-- <result name="delete">/manage_part/part_delete.jsp</result> -->
+		</action>
+		<action name="deletePartByPartCode" class="partAction" method="deletePartByPartCode">
+			<result name="success">/manage_part/part_delete_list.jsp</result>
+			<!-- <result name="update">/manage_part/part_update.jsp</result>
+			<result name="delete">/manage_part/part_delete.jsp</result> -->
+		</action>
+		<action name="updatePartByPartCode" class="partAction" method="updatePartByPartCode">
+			<result name="success">/manage_part/part_update_list.jsp</result>
+		</action>
+	</package>
+	<package name="modulepart" extends="default" namespace="/modulepartspace">
+		<action name="toModulePart" class="modulePartAction">
+			<result name="success">/manage_module_part/module_part.jsp</result>
+		</action>
+		<action name="queryModulesByCondition" class="modulePartAction" method="queryModulesByCondition">
+			<result name="modulePartsList">/manage_module_part/module_part_list.jsp</result>
+		</action>
+		<action name="initAddPartsPage" class="modulePartAction" method="queryPartsByModuleCode">
+			<result name="success">/manage_module_part/module_part_add.jsp</result>
+		</action>
+		<action name="addPartsToModule" class="modulePartAction" method="addPartsToModule">
+			<result name="success">/manage_module_part/module_part_list.jsp</result>
+		</action>
+		<action name="toPartModule" class="modulePartAction">
+			<result name="success">/manage_module_part/part_module.jsp</result>
+		</action>
+		<action name="queryPartsByCondition" class="modulePartAction" method="queryPartsByCondition">
+			<result name="success">/manage_module_part/part_module_list.jsp</result>
+		</action>
+		<action name="initAddModulesPage" class="modulePartAction" method="queryModulesByPartCode">
+			<result name="success">/manage_module_part/part_module_add.jsp</result>
+		</action>
+		<action name="addModulesToPart" class="modulePartAction" method="addModulesToPart">
+			<result name="success">/manage_module_part/part_module_list.jsp</result>
+		</action>
+	</package>
+</struts>

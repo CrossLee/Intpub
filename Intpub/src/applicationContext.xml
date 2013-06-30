@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-autowire="byName"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.1.xsd">
+
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://114.84.173.66:3306/IntpubDB"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="intpub"></property>
+	</bean>
+	
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		  <property name="dataSource" ref="dataSource"/>
+    </bean>
+ 	
+ 	<!-- action start -->
+	<bean id="userAction" class="com.withiter.action.UserAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+
+	<bean id="moduleAction" class="com.withiter.action.ModuleAction" scope="prototype">
+		<property name="moduleService" ref="moduleService"></property>
+	</bean>
+	
+	<bean id="partAction" class="com.withiter.action.PartAction" scope="prototype">
+		<property name="partService" ref="partService"></property>
+	</bean>
+
+	<bean id="roleAction" class="com.withiter.action.RoleAction" scope="prototype">
+		<property name="roleService" ref="roleService"></property>
+	</bean>
+
+	<bean id="modulePartAction" class="com.withiter.action.ModulePartAction" scope="prototype">
+		<property name="moduleService" ref="moduleService"></property>
+		<property name="partService" ref="partService"></property>
+		<property name="modulePartService" ref="modulePartService"></property>
+	</bean>
+	
+	<bean id="infoAction" class="com.withiter.action.InfoAction" scope="prototype">
+		<property name="infoService" ref="infoService"></property>
+	</bean>
+	<!-- action end -->
+	
+	<!-- service start -->
+	<bean id="userService" class="com.withiter.service.impl.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+
+	<bean id="moduleService" class="com.withiter.service.impl.ModuleServiceImpl">
+		<property name="moduleDao" ref="moduleDao"></property>
+	</bean>
+	
+	<bean id="partService" class="com.withiter.service.impl.PartServiceImpl">
+		<property name="partDao" ref="partDao"></property>
+	</bean>
+
+	<bean id="roleService" class="com.withiter.service.impl.RoleServiceImpl">
+		<property name="roleDao" ref="roleDao"></property>
+	</bean>
+	
+	<bean id="modulePartService" class="com.withiter.service.impl.ModulePartServiceImpl">
+		<property name="modulePartDao" ref="modulePartDao"></property>
+	</bean>
+	
+	<bean id="infoService" class="com.withiter.service.impl.InfoServiceImpl">
+		<property name="infoDao" ref="infoDao"></property>
+	</bean>
+	<!-- service end -->
+
+	<!-- dao start  -->
+	<bean id="userDao" class="com.withiter.dao.impl.UserDaoImpl">
+	</bean>
+	<bean id="moduleDao" class="com.withiter.dao.impl.ModuleDaoImpl">
+	</bean>
+	<bean id="partDao" class="com.withiter.dao.impl.PartDaoImpl">
+	</bean>
+	<bean id="roleDao" class="com.withiter.dao.impl.RoleDaoImpl">
+	</bean>
+	<bean id="modulePartDao" class="com.withiter.dao.impl.ModulePartDaoImpl">
+	</bean>
+	<bean id="infoDao" class="com.withiter.dao.impl.InfoDaoImpl">
+	</bean>
+	<!-- dao end  -->
+	
+	<!-- resource service start -->
+	<!-- resource service end -->
+
+</beans>
