@@ -1,0 +1,8 @@
+bin
+build
+Intpub
+# Eclipse Files #
+#################
+.settings/
+.project
+.classpath
